@@ -160,7 +160,11 @@ function Hero(obj) {
 Hero.prototype = Object.create(Humanoid.prototype);
 Hero.prototype.smite = function(target) {
   console.log(`${this.name} smites ${target.name}!`)
-  target.loseHealth(this.smiteDamage);
+  if (target.healthPoints > 0) {
+    target.loseHealth(this.smiteDamage);
+  } else {
+    console.log(`${this.name}, stop attacking! They're already dead!`);
+  }
 };
 
 function Villain(obj) {
@@ -175,6 +179,8 @@ Villain.prototype.decay = function(target) {
   for (let i = 0; i < 3; i++) {
     if (target.healthPoints > 0) {
       target.loseHealth(this.decayDamage);
+    } else {
+      console.log(`${this.name}, stop attacking! They're already dead!`);
     }
   }
 };
